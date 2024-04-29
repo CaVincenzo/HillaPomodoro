@@ -11,22 +11,21 @@ import {useNavigate} from "react-router-dom";
 
 
 export function TodoView() {
-    const [todos, setTodos] = useState<Todo[]>([]);
+    const [activeTodos, setActiveTodos] = useState<Todo[]>([]);
     const [task, setTask] = useState('');
+    const [doneTodos, setDoneTodos] = useState<Todo[]>([]);
 
-    //Todo list of done Todo
-    //const [done, setDone]= useState()
-
-    // to call the server
+    // Daten von Server laden
     useEffect(() => {
-        TodoEndpoints.findAll().then(setTodos);
+          TodoEndpoints.findAllActive().then(setActiveTodos);
+          TodoEndpoints.findAllDone().then(setDoneTodos);
     }, []);
 
 
     async function addTodo() {
         const saved = await TodoEndpoints.add(task)
         if (saved) {
-            setTodos([...todos, saved]);
+            setActiveTodos([...activeTodos, saved]);
             setTask('')
         }
     }
@@ -34,7 +33,17 @@ export function TodoView() {
     async function updateTodo(todo: Todo, done: boolean) {
         const saved = await TodoEndpoints.update({...todo, done});
         if (saved) {
-            setTodos(todos.map(existing => existing.id == saved.id ? saved : existing))
+            if (done) {
+                // If done, remove the from the activeTodos array
+                setActiveTodos(prevActiveTodos => prevActiveTodos.filter(existing => existing.id !== saved.id));
+                // Add  to the doneTodos array
+                setDoneTodos(prevDoneTodos => [...prevDoneTodos, saved]);
+            } else {
+                // If undone, move the back to the activeTodos array
+                setActiveTodos(prevActiveTodos => [...prevActiveTodos, saved]);
+                // Remove from the doneTodos array
+                setDoneTodos(prevDoneTodos => prevDoneTodos.filter(existing => existing.id !== saved.id));
+            }
         }
     }
 
@@ -48,7 +57,6 @@ export function TodoView() {
     const tabsStyle = {
         margin: 'auto',
     };
-    //
 
     const navigate = useNavigate()
 
@@ -64,7 +72,7 @@ export function TodoView() {
                 </Tab>
 
                 <Tab>
-                    <a onClick={()=> navigate("/pomodoro")}>What is Pomodoro?</a>
+                    <a onClick={() => navigate('pomodoro')}>What is Pomodoro?</a>
                 </Tab>
             </Tabs>
 
@@ -73,13 +81,25 @@ export function TodoView() {
                 <Button theme={"primary"} onClick={addTodo}>Add</Button>
             </div>
 
-            {todos.map(todo => (
-                <div key={todo.id}>
-                    <Checkbox  checked={todo.done} onCheckedChanged={e => updateTodo(todo, e.detail.value)}/>
-                    <span>{todo.task}</span>
-                </div>
-            ))}
+            <div>
+                <h2>Active Todos</h2>
+                {activeTodos.map(todo => (
+                    <div key={todo.id}>
+                        <Checkbox checked={todo.done} onCheckedChanged={e => updateTodo(todo, e.detail.value)}/>
+                        <span>{todo.task}</span>
+                    </div>
+                ))}
+            </div>
 
+            <div>
+                <h2>Completed Todos</h2>
+                {doneTodos.map(todo => (
+                    <div key={todo.id}>
+                        <Checkbox checked={todo.done} onCheckedChanged={e => updateTodo(todo, e.detail.value)}/>
+                        <span>{todo.task}</span>
+                    </div>
+                ))}
+            </div>
 
         </AppLayout>
     );

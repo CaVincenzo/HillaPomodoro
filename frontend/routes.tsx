@@ -5,7 +5,7 @@ import React from "react";
 
 
 const routing = [
-    {path: '/todo', element: <TodoView/>},
+    {path: '/', element: <TodoView/>},
     {path: '/pomodoro', element: <PomodoroView/>}
 
 ] as RouteObject[];

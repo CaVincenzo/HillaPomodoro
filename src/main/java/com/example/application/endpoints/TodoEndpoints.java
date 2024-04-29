@@ -17,15 +17,17 @@ public class TodoEndpoints {
         this.repo = repo;
     }
 
-    public List<Todo> findAll() {
-        return repo.findAll();
+    public List<Todo> findAllActive() {
+        return repo.getAllByDoneIsFalse();
     }
 
+    public List<Todo> findAllDone(){return repo.getAllByDoneIsTrue();}
     public Todo add(String task) {
         return repo.save(new Todo(task));
     }
 
     public Todo update(Todo todo) {
+
         return repo.save(todo);
     }
 }

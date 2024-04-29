@@ -27,7 +27,7 @@ export function PomodoroView() {
 
             <Tabs slot="navbar" style={tabsStyle}>
                 <Tab>
-                    <a onClick={() => navigate("/todo")}>Todos</a>
+                    <a onClick={()=> navigate(`/`)}>Pomotime</a>
                 </Tab>
 
                 <Tab>
