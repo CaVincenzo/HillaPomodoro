@@ -33,6 +33,10 @@ export function PomodoroView() {
                 <Tab>
                     <a>What is Pomodoro?</a>
                 </Tab>
+
+                <Tab>
+                    <a onClick={()=> navigate(`/settings`)}>Pomodoro Settings</a>
+                </Tab>
             </Tabs>
 
             <div>

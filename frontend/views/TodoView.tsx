@@ -9,17 +9,84 @@ import {Tabs} from "@hilla/react-components/Tabs";
 import {Tab} from "@hilla/react-components/Tab";
 import {useNavigate} from "react-router-dom";
 
-
 export function TodoView() {
     const [activeTodos, setActiveTodos] = useState<Todo[]>([]);
     const [task, setTask] = useState('');
     const [doneTodos, setDoneTodos] = useState<Todo[]>([]);
 
+    const [PomodoroMinutes, setPomodoroMinutes] = useState(1);
+    const [BreakMinutes, setBreakMinutes] = useState(5);
+    const [seconds, setSeconds] = useState(0);
+
+    const [isPomodoroTime, setIsPomodoroTime] = useState(true);
+    const [timerRunning, setTimerRunning] = useState(false);
+
+
+    const navigate = useNavigate()
+
     // Daten von Server laden
     useEffect(() => {
-          TodoEndpoints.findAllActive().then(setActiveTodos);
-          TodoEndpoints.findAllDone().then(setDoneTodos);
+        TodoEndpoints.findAllActive().then(setActiveTodos);
+        TodoEndpoints.findAllDone().then(setDoneTodos);
     }, []);
+
+
+    useEffect(() => {
+        let interval: NodeJS.Timeout;
+        if (timerRunning) {
+            interval = setInterval(() => {
+                if (seconds === 0) {
+                    if (isPomodoroTime) {
+                        if (PomodoroMinutes !== 0) {
+                            setSeconds(59);
+                            setPomodoroMinutes(PomodoroMinutes - 1);
+                        } else {
+                            // switch to Break Time
+                            setIsPomodoroTime(false)
+                            setTimerRunning(false);
+                            setBreakMinutes(5);
+                            clearInterval(interval);
+                        }
+                    } else {
+                        if (BreakMinutes !== 0) {
+                            setSeconds(59);
+                            setBreakMinutes(BreakMinutes - 1);
+                        } else {
+                            // Switch back to Pomodoro time
+                            setIsPomodoroTime(true);
+                            setTimerRunning(false);
+                            setPomodoroMinutes(25);
+                            clearInterval(interval);
+                        }
+                    }
+
+                } else {
+                    setSeconds(seconds - 1);
+                }
+            }, 1000);
+        }
+        return () => clearInterval(interval);
+    }, [timerRunning, seconds, PomodoroMinutes,]);
+
+    const startTimer = async () => {
+        setTimerRunning(true);
+    };
+
+    const pauseTimer = async () => {
+        setTimerRunning(false);
+    };
+
+    const stopTimer = async () => {
+        if (isPomodoroTime) {
+            setTimerRunning(false);
+            setPomodoroMinutes(25);
+            setSeconds(0);
+        } else {
+            setTimerRunning(false);
+            setBreakMinutes(5);
+            setSeconds(0);
+        }
+    };
 
 
     async function addTodo() {
@@ -58,7 +125,8 @@ export function TodoView() {
         margin: 'auto',
     };
 
-    const navigate = useNavigate()
+    const timerMinutes = PomodoroMinutes < 10 ? `0${PomodoroMinutes}` : PomodoroMinutes;
+    const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
     return (
         <AppLayout>
@@ -74,7 +142,27 @@ export function TodoView() {
                 <Tab>
                     <a onClick={() => navigate('pomodoro')}>What is Pomodoro?</a>
                 </Tab>
+
+                <Tab>
+                    <a onClick={() => navigate(`/settings`)}>Pomodoro Settings</a>
+                </Tab>
             </Tabs>
+
+            <div className={"timer"}>
+                {timerMinutes}:{timerSeconds}
+            </div>
+
+            <div className={"flex gap-m center"}>
+                <Button theme={"primary"} onClick={startTimer}>
+                    Play
+                </Button>
+                <Button theme={"primary"} onClick={pauseTimer}>
+                    Pause
+                </Button>
+                <Button theme={"primary"} onClick={stopTimer}>
+                    Stop
+                </Button>
+            </div>
 
             <div className={"flex gap-m center"}>
                 <TextField value={task} placeholder={'add Todo'} onChange={e => setTask(e.target.value)}/>
