@@ -8,19 +8,14 @@ import {AppLayout} from "@hilla/react-components/AppLayout";
 import {Tabs} from "@hilla/react-components/Tabs";
 import {Tab} from "@hilla/react-components/Tab";
 import {useNavigate} from "react-router-dom";
+import useTimer from "Frontend/useTimer";
 
 export function TodoView() {
     const [activeTodos, setActiveTodos] = useState<Todo[]>([]);
     const [task, setTask] = useState('');
     const [doneTodos, setDoneTodos] = useState<Todo[]>([]);
 
-    const [PomodoroMinutes, setPomodoroMinutes] = useState(1);
-    const [BreakMinutes, setBreakMinutes] = useState(5);
-    const [seconds, setSeconds] = useState(0);
-
-    const [isPomodoroTime, setIsPomodoroTime] = useState(true);
-    const [timerRunning, setTimerRunning] = useState(false);
-
+    const { minutes, seconds, startTimer, pauseTimer, stopTimer } = useTimer();
 
     const navigate = useNavigate()
 
@@ -31,62 +26,6 @@ export function TodoView() {
     }, []);
 
 
-    useEffect(() => {
-        let interval: NodeJS.Timeout;
-        if (timerRunning) {
-            interval = setInterval(() => {
-                if (seconds === 0) {
-                    if (isPomodoroTime) {
-                        if (PomodoroMinutes !== 0) {
-                            setSeconds(59);
-                            setPomodoroMinutes(PomodoroMinutes - 1);
-                        } else {
-                            // switch to Break Time
-                            setIsPomodoroTime(false)
-                            setTimerRunning(false);
-                            setBreakMinutes(5);
-                            clearInterval(interval);
-                        }
-                    } else {
-                        if (BreakMinutes !== 0) {
-                            setSeconds(59);
-                            setBreakMinutes(BreakMinutes - 1);
-                        } else {
-                            // Switch back to Pomodoro time
-                            setIsPomodoroTime(true);
-                            setTimerRunning(false);
-                            setPomodoroMinutes(25);
-                            clearInterval(interval);
-                        }
-                    }
-
-                } else {
-                    setSeconds(seconds - 1);
-                }
-            }, 1000);
-        }
-        return () => clearInterval(interval);
-    }, [timerRunning, seconds, PomodoroMinutes,]);
-
-    const startTimer = async () => {
-        setTimerRunning(true);
-    };
-
-    const pauseTimer = async () => {
-        setTimerRunning(false);
-    };
-
-    const stopTimer = async () => {
-        if (isPomodoroTime) {
-            setTimerRunning(false);
-            setPomodoroMinutes(25);
-            setSeconds(0);
-        } else {
-            setTimerRunning(false);
-            setBreakMinutes(5);
-            setSeconds(0);
-        }
-    };
 
 
     async function addTodo() {
@@ -125,7 +64,7 @@ export function TodoView() {
         margin: 'auto',
     };
 
-    const timerMinutes = PomodoroMinutes < 10 ? `0${PomodoroMinutes}` : PomodoroMinutes;
+    const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
     const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
     return (
