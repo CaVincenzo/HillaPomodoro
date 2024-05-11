@@ -1,0 +1,12 @@
+/* PomodoroViewStyles.css */
+
+.h1Style {
+    font-size: var(--lumo-font-size-l);
+    left: var(--lumo-space-l);
+    margin: 0;
+    position: absolute;
+}
+
+.tabsStyle {
+    margin: auto;
+}

@@ -7,10 +7,10 @@ type PomodoroContextType = {
     setBreakMinutes: (minutes: number) => void;
 };
 
-const PomodoroContext = createContext<PomodoroContextType | undefined>(undefined);
+const PomodoroTimerContext = createContext<PomodoroContextType | undefined>(undefined);
 
 export const usePomodoroSettings = (): PomodoroContextType => {
-    const context = useContext(PomodoroContext);
+    const context = useContext(PomodoroTimerContext);
     if (context === undefined) {
         throw new Error('usePomodoroSettings must be used within a PomodoroProvider');
     }
@@ -29,8 +29,8 @@ export const PomodoroProvider: React.FC<{ children: ReactNode }> = ({children}) 
     };
 
     return (
-        <PomodoroContext.Provider value={value}>
+        <PomodoroTimerContext.Provider value={value}>
             {children}
-        </PomodoroContext.Provider>
+        </PomodoroTimerContext.Provider>
     );
 };

@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {AppLayout} from "@hilla/react-components/AppLayout";
 import {Tabs} from "@hilla/react-components/Tabs";
 import {Tab} from "@hilla/react-components/Tab";
-import {usePomodoroSettings} from "Frontend/PomodoroContext";
+import {usePomodoroSettings} from "Frontend/context/PomodoroTimerContext";
 import {TextField} from "@hilla/react-components/TextField";
 import {Button} from "@hilla/react-components/Button";
 
@@ -18,23 +18,12 @@ export function PomodoroSettingsView() {
         setTimeout(() => setShowConfirmation(false), 3000); // Hide message after 3 seconds
     };
 
-    const h1Style: React.CSSProperties = {
-        fontSize: 'var(--lumo-font-size-l)',
-        left: 'var(--lumo-space-l)',
-        margin: 0,
-        position: 'absolute',
-    };
-
-    const tabsStyle = {
-        margin: 'auto',
-    };
-
     return (
         <AppLayout>
-            <h1 slot="navbar" style={h1Style}>
+            <h1 slot="navbar" className={"h1Style"}>
                 Pomodoro
             </h1>
-            <Tabs slot="navbar" style={tabsStyle}>
+            <Tabs slot="navbar" className={"tabsStyle"}>
                 <Tab>
                     <a onClick={() => navigate(`/`)}>Pomotime</a>
                 </Tab>

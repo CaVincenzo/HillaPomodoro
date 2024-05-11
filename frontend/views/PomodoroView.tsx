@@ -6,26 +6,15 @@ import {useNavigate} from "react-router-dom";
 
 export function PomodoroView() {
 
-    const h1Style: React.CSSProperties = {
-        fontSize: 'var(--lumo-font-size-l)',
-        left: 'var(--lumo-space-l)',
-        margin: 0,
-        position: 'absolute',
-    };
-
-    const tabsStyle = {
-        margin: 'auto',
-    };
-
     const navigate = useNavigate()
 
     return (
         <AppLayout>
-            <h1 slot="navbar" style={h1Style}>
+            <h1 slot="navbar" className={"h1Style"}>
                 Pomodoro
             </h1>
 
-            <Tabs slot="navbar" style={tabsStyle}>
+            <Tabs slot="navbar" className={"tabsStyle"}>
                 <Tab>
                     <a onClick={()=> navigate(`/`)}>Pomotime</a>
                 </Tab>

@@ -8,8 +8,9 @@ import {AppLayout} from "@hilla/react-components/AppLayout";
 import {Tabs} from "@hilla/react-components/Tabs";
 import {Tab} from "@hilla/react-components/Tab";
 import {useNavigate} from "react-router-dom";
-import useTimer from "Frontend/useTimer";
-import {usePomodoroSettings} from "Frontend/PomodoroContext";
+import useTimer from "Frontend/context/useTimer";
+import {usePomodoroSettings} from "Frontend/context/PomodoroTimerContext";
+import 'Frontend/themes/todo/styles.css'
 
 export function TodoView() {
     const [activeTodos, setActiveTodos] = useState<Todo[]>([]);
@@ -56,27 +57,16 @@ export function TodoView() {
         }
     }
 
-    const h1Style: React.CSSProperties = {
-        fontSize: 'var(--lumo-font-size-l)',
-        left: 'var(--lumo-space-l)',
-        margin: 0,
-        position: 'absolute',
-    };
-
-    const tabsStyle = {
-        margin: 'auto',
-    };
-
     const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
     const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
     return (
         <AppLayout>
-            <h1 slot="navbar" style={h1Style}>
+            <h1 slot="navbar" className={"h1Style"}>
                 Pomodoro
             </h1>
 
-            <Tabs slot="navbar" style={tabsStyle}>
+            <Tabs slot="navbar" className={"tabsStyle"}>
                 <Tab>
                     <a>Pomotime</a>
                 </Tab>

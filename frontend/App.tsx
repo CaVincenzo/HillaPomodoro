@@ -1,6 +1,6 @@
 import router from 'Frontend/routes.js';
 import {RouterProvider} from 'react-router-dom';
-import {PomodoroProvider} from "Frontend/PomodoroContext";
+import {PomodoroProvider} from "Frontend/context/PomodoroTimerContext";
 
 export default function App() {
 
