@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {AppLayout} from "@hilla/react-components/AppLayout";
 import {Tabs} from "@hilla/react-components/Tabs";
 import {Tab} from "@hilla/react-components/Tab";
@@ -9,7 +9,6 @@ import {Button} from "@hilla/react-components/Button";
 
 export function PomodoroSettingsView() {
 
-    const navigate = useNavigate()
     const {pomodoroMinutes, setPomodoroMinutes, breakMinutes, setBreakMinutes} = usePomodoroSettings();
     const [showConfirmation, setShowConfirmation] = useState(false);
 
@@ -25,15 +24,19 @@ export function PomodoroSettingsView() {
             </h1>
             <Tabs slot="navbar" className={"tabsStyle"}>
                 <Tab>
-                    <a onClick={() => navigate(`/`)}>Pomotime</a>
+                    <NavLink to='/'> Pomotime</NavLink>
                 </Tab>
+
                 <Tab>
-                    <a onClick={() => navigate('/pomodoro')}> What is Pomodoro?</a>
+                    <NavLink to='/pomodoro'> What is Pomodoro?</NavLink>
+
                 </Tab>
+
                 <Tab>
-                    <a>Pomodoro Settings</a>
+                    <NavLink to='/settings'>Pomodoro Settings </NavLink>
                 </Tab>
             </Tabs>
+
             <h1>Pomodoro Settings</h1>
             <div>
                 <TextField label="Pomodoro Minutes" value={String(pomodoroMinutes)}

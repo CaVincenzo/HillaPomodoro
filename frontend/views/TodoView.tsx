@@ -7,7 +7,7 @@ import {Checkbox} from "@hilla/react-components/Checkbox";
 import {AppLayout} from "@hilla/react-components/AppLayout";
 import {Tabs} from "@hilla/react-components/Tabs";
 import {Tab} from "@hilla/react-components/Tab";
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import useTimer from "Frontend/context/useTimer";
 import {usePomodoroSettings} from "Frontend/context/PomodoroTimerContext";
 import 'Frontend/themes/todo/styles.css'
@@ -22,8 +22,6 @@ export function TodoView() {
         initialPomodoroMinutes: pomodoroMinutes,
         initialBreakMinutes: breakMinutes
     });
-
-    const navigate = useNavigate()
 
     // Daten von Server laden
     useEffect(() => {
@@ -65,18 +63,19 @@ export function TodoView() {
             <h1 slot="navbar" className={"h1Style"}>
                 Pomodoro
             </h1>
-
+            // aria -selected
             <Tabs slot="navbar" className={"tabsStyle"}>
                 <Tab>
-                    <a>Pomotime</a>
+                    <NavLink to='/'> Pomotime</NavLink>
                 </Tab>
 
                 <Tab>
-                    <a onClick={() => navigate('pomodoro')}>What is Pomodoro?</a>
+                    <NavLink to='/pomodoro'> What is Pomodoro?</NavLink>
+
                 </Tab>
 
                 <Tab>
-                    <a onClick={() => navigate(`/settings`)}>Pomodoro Settings</a>
+                    <NavLink to='/settings'>Pomodoro Settings </NavLink>
                 </Tab>
             </Tabs>
 

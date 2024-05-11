@@ -2,11 +2,9 @@ import {AppLayout} from "@hilla/react-components/AppLayout";
 import {Tabs} from "@hilla/react-components/Tabs";
 import {Tab} from "@hilla/react-components/Tab";
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 
 export function PomodoroView() {
-
-    const navigate = useNavigate()
 
     return (
         <AppLayout>
@@ -16,15 +14,16 @@ export function PomodoroView() {
 
             <Tabs slot="navbar" className={"tabsStyle"}>
                 <Tab>
-                    <a onClick={()=> navigate(`/`)}>Pomotime</a>
+                    <NavLink to='/'> Pomotime</NavLink>
                 </Tab>
 
                 <Tab>
-                    <a>What is Pomodoro?</a>
+                    <NavLink to='/pomodoro'> What is Pomodoro?</NavLink>
+
                 </Tab>
 
                 <Tab>
-                    <a onClick={()=> navigate(`/settings`)}>Pomodoro Settings</a>
+                    <NavLink to='/settings'>Pomodoro Settings </NavLink>
                 </Tab>
             </Tabs>
 
