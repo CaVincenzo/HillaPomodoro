@@ -1,6 +1,12 @@
 import router from 'Frontend/routes.js';
-import { RouterProvider } from 'react-router-dom';
+import {RouterProvider} from 'react-router-dom';
+import {PomodoroProvider} from "Frontend/PomodoroContext";
 
 export default function App() {
-  return <RouterProvider router={router} />;
+
+    return (
+        <PomodoroProvider>
+            <RouterProvider router={router}/>
+        </PomodoroProvider>);
+
 }

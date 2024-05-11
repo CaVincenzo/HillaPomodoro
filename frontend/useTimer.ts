@@ -1,10 +1,15 @@
-import { useState, useEffect } from 'react';
+import {useEffect, useState} from 'react';
 
-function useTimer(initialPomodoroMinutes = 25, initialBreakMinutes = 5) {
-    const [minutes, setMinutes] = useState(initialPomodoroMinutes);
-    const [seconds, setSeconds] = useState(0);
-    const [isPomodoroTime, setIsPomodoroTime] = useState(true);
-    const [timerRunning, setTimerRunning] = useState(false);
+interface UseTimerArgs {
+    initialPomodoroMinutes: number;
+    initialBreakMinutes: number;
+}
+
+function useTimer({initialPomodoroMinutes, initialBreakMinutes}: UseTimerArgs) {
+    const [minutes, setMinutes] = useState<number>(initialPomodoroMinutes);
+    const [seconds, setSeconds] = useState<number>(0);
+    const [isPomodoroTime, setIsPomodoroTime] = useState<boolean>(true);
+    const [timerRunning, setTimerRunning] = useState<boolean>(false);
 
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null; // Initialize interval as null

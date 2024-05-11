@@ -9,13 +9,18 @@ import {Tabs} from "@hilla/react-components/Tabs";
 import {Tab} from "@hilla/react-components/Tab";
 import {useNavigate} from "react-router-dom";
 import useTimer from "Frontend/useTimer";
+import {usePomodoroSettings} from "Frontend/PomodoroContext";
 
 export function TodoView() {
     const [activeTodos, setActiveTodos] = useState<Todo[]>([]);
     const [task, setTask] = useState('');
     const [doneTodos, setDoneTodos] = useState<Todo[]>([]);
 
-    const { minutes, seconds, startTimer, pauseTimer, stopTimer } = useTimer();
+    const {pomodoroMinutes, breakMinutes} = usePomodoroSettings();
+    const {minutes, seconds, startTimer, pauseTimer, stopTimer} = useTimer({
+        initialPomodoroMinutes: pomodoroMinutes,
+        initialBreakMinutes: breakMinutes
+    });
 
     const navigate = useNavigate()
 
@@ -24,8 +29,6 @@ export function TodoView() {
         TodoEndpoints.findAllActive().then(setActiveTodos);
         TodoEndpoints.findAllDone().then(setDoneTodos);
     }, []);
-
-
 
 
     async function addTodo() {
