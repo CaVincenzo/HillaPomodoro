@@ -16,6 +16,8 @@ export function TodoView() {
     const [activeTodos, setActiveTodos] = useState<Todo[]>([]);
     const [task, setTask] = useState('');
     const [doneTodos, setDoneTodos] = useState<Todo[]>([]);
+    const [targetCount, setTargetCount] = useState(1)
+
 
     const {pomodoroMinutes, breakMinutes} = usePomodoroSettings();
     const {minutes, seconds, startTimer, pauseTimer, stopTimer} = useTimer({
@@ -31,12 +33,21 @@ export function TodoView() {
 
 
     async function addTodo() {
-        const saved = await TodoEndpoints.add(task)
+        const saved = await TodoEndpoints.add(task,targetCount)
         if (saved) {
             setActiveTodos([...activeTodos, saved]);
             setTask('')
+            setTargetCount(1)
         }
     }
+
+    // function onTimerEnd() {
+    //     activeTodos.forEach(todo => {
+    //         if (!todo.done && todo.id !== undefined) {
+    //             TodoEndpoints.updateCounter(todo.id, 1);
+    //         }
+    //     });
+    // }
 
     async function updateTodo(todo: Todo, done: boolean) {
         const saved = await TodoEndpoints.update({...todo, done});
@@ -98,6 +109,7 @@ export function TodoView() {
 
             <div className={"flex gap-m center"}>
                 <TextField value={task} placeholder={'add Todo'} onChange={e => setTask(e.target.value)}/>
+                <TextField value={targetCount.toString()} onChange={e => setTargetCount(parseInt(e.target.value) || 1)} />
                 <Button theme={"primary"} onClick={addTodo}>Add</Button>
             </div>
 
@@ -105,8 +117,10 @@ export function TodoView() {
                 <h2>Active Todos</h2>
                 {activeTodos.map(todo => (
                     <div key={todo.id}>
-                        <Checkbox checked={todo.done} onCheckedChanged={e => updateTodo(todo, e.detail.value)}/>
                         <span>{todo.task}</span>
+                        <Checkbox checked={todo.done} onCheckedChanged={e => updateTodo(todo, e.detail.value)}/>
+                        {/*<ProgressBar min={todo.currentCount} max={todo.targetCount} ></ProgressBar>*/}
+
                     </div>
                 ))}
             </div>

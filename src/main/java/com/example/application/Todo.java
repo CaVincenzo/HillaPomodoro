@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
-// Datamodel
+
 @Entity
 public class Todo {
     @Id
@@ -15,8 +15,15 @@ public class Todo {
 
     private boolean done;
 
-    public Todo(String task) {
+
+
+    private int targetCount;
+    private int currentCount;
+
+    public Todo(String task, int targetCount) {
         this.task = task;
+        this.targetCount = targetCount;
+        this.currentCount = 0;
     }
 
     public Todo() {
@@ -44,5 +51,20 @@ public class Todo {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+    public int getTargetCount() {
+        return targetCount;
+    }
+
+    public void setTargetCount(int targetCount) {
+        this.targetCount = targetCount;
+    }
+
+    public int getCurrentCount() {
+        return currentCount;
+    }
+
+    public void setCurrentCount(int currentCount) {
+        this.currentCount = currentCount;
     }
 }

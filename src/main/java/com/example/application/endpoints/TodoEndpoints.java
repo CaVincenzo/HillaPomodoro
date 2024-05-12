@@ -22,12 +22,16 @@ public class TodoEndpoints {
     }
 
     public List<Todo> findAllDone(){return repo.getAllByDoneIsTrue();}
-    public Todo add(String task) {
-        return repo.save(new Todo(task));
+    public Todo add(String task, int targetCount) {
+        return repo.save(new Todo(task,targetCount));
+    }
+    public Todo updateCounter(Long todoId, int increment) {
+        Todo todo = repo.findById(todoId).orElseThrow();
+        todo.setCurrentCount(todo.getCurrentCount() + increment);
+        return repo.save(todo);
     }
 
     public Todo update(Todo todo) {
-
         return repo.save(todo);
     }
 }
