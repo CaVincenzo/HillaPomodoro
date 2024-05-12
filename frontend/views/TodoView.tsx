@@ -7,7 +7,7 @@ import {Checkbox} from "@hilla/react-components/Checkbox";
 import {AppLayout} from "@hilla/react-components/AppLayout";
 import {Tabs} from "@hilla/react-components/Tabs";
 import {Tab} from "@hilla/react-components/Tab";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import useTimer from "Frontend/context/useTimer";
 import {usePomodoroSettings} from "Frontend/context/PomodoroTimerContext";
 import 'Frontend/themes/todo/styles.css'
