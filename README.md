@@ -1,7 +1,15 @@
-# Custom project from Hilla
+## Pomodoro Application
 
-This project can be used as a starting point to create your own Hilla application with Spring Boot.
-It contains all the necessary configuration and some placeholder files to get you started.
+This project is a Pomodoro Application built using the Hilla framework, which combines Spring Boot on the server
+side and React on the client side. The Pomodoro Technique is a time management method developed by Francesco Cirillo in
+the late 1980s. This application helps users to use the Pomodoro Technique by providing a customizable timer to track
+work and break intervals.
+
+## About Hilla
+
+Hilla is a full-stack framework that allows developers to build modern web applications using Java on the backend and
+React on the frontend. Hilla seamlessly integrates the two technologies, providing a robust environment for rapid
+application development with strong type safety and efficient data handling.
 
 ## Running the application
 
@@ -11,17 +19,6 @@ http://localhost:8080 in your browser.
 
 You can also import the project to your IDE of choice as you would with any
 Maven project.
-
-## Deploying to Production
-
-To create a production build, call `mvnw clean package -Pproduction` (Windows),
-or `./mvnw clean package -Pproduction` (Mac & Linux).
-This will build a JAR file with all the dependencies and front-end resources,
-ready to be deployed. The file can be found in the `target` folder after the build completes.
-
-Once the JAR file is built, you can run it using
-`java -jar target/myapp-1.0-SNAPSHOT.jar` (NOTE, replace
-`myapp-1.0-SNAPSHOT.jar` with the name of your jar).
 
 ## Project structure
 
@@ -47,5 +44,4 @@ source directory, contains the server-side Java views</td></tr>
 ## Useful links
 
 - Read the documentation at [hilla.dev/docs](https://hilla.dev/docs/).
-- Ask questions on [Stack Overflow](https://stackoverflow.com/questions/tagged/hilla) or join our [Discord channel](https://discord.gg/MYFq5RTbBn).
-- Report issues, create pull requests in [GitHub](https://github.dev/hilla).
+

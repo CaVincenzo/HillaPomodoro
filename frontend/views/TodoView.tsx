@@ -23,7 +23,7 @@ export function TodoView() {
         initialBreakMinutes: breakMinutes
     });
 
-    // Daten von Server laden
+    // fetch data from server
     useEffect(() => {
         TodoEndpoints.findAllActive().then(setActiveTodos);
         TodoEndpoints.findAllDone().then(setDoneTodos);
@@ -58,12 +58,13 @@ export function TodoView() {
     const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
     const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
+//https://github.com/vaadin/flow/issues/19200, AppLayout bug current open issue at Hilla.
+
     return (
         <AppLayout>
             <h1 slot="navbar" className={"h1Style"}>
                 Pomodoro
             </h1>
-            // aria -selected
             <Tabs slot="navbar" className={"tabsStyle"}>
                 <Tab>
                     <NavLink to='/'> Pomotime</NavLink>
@@ -75,7 +76,7 @@ export function TodoView() {
                 </Tab>
 
                 <Tab>
-                    <NavLink to='/settings'>Pomodoro Settings </NavLink>
+                    <NavLink to='/settings'>Settings </NavLink>
                 </Tab>
             </Tabs>
 

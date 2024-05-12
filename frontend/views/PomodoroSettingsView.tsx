@@ -33,7 +33,7 @@ export function PomodoroSettingsView() {
                 </Tab>
 
                 <Tab>
-                    <NavLink to='/settings'>Pomodoro Settings </NavLink>
+                    <NavLink to='/settings'>Settings </NavLink>
                 </Tab>
             </Tabs>
 

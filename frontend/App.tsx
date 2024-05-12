@@ -1,4 +1,4 @@
-import router from 'Frontend/routes.js';
+import router from 'Frontend/util/routes';
 import {RouterProvider} from 'react-router-dom';
 import {PomodoroProvider} from "Frontend/context/PomodoroTimerContext";
 

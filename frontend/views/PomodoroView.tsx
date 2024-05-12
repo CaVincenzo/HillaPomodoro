@@ -2,7 +2,7 @@ import {AppLayout} from "@hilla/react-components/AppLayout";
 import {Tabs} from "@hilla/react-components/Tabs";
 import {Tab} from "@hilla/react-components/Tab";
 import React from "react";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 export function PomodoroView() {
 
@@ -23,7 +23,7 @@ export function PomodoroView() {
                 </Tab>
 
                 <Tab>
-                    <NavLink to='/settings'>Pomodoro Settings </NavLink>
+                    <NavLink to='/settings'>Settings </NavLink>
                 </Tab>
             </Tabs>
 
