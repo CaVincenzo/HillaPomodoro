@@ -1,9 +1,6 @@
-import React, {useEffect, useState} from "react";
-import Todo from "Frontend/generated/com/example/application/Todo";
-import {TodoEndpoints} from "Frontend/generated/endpoints.js";
+import React from "react";
 import {TextField} from "@hilla/react-components/TextField";
 import {Button} from "@hilla/react-components/Button";
-import {Checkbox} from "@hilla/react-components/Checkbox";
 import {AppLayout} from "@hilla/react-components/AppLayout";
 import {Tabs} from "@hilla/react-components/Tabs";
 import {Tab} from "@hilla/react-components/Tab";
@@ -11,59 +8,30 @@ import {NavLink} from "react-router-dom";
 import useTimer from "Frontend/context/useTimer";
 import {usePomodoroSettings} from "Frontend/context/PomodoroTimerContext";
 import 'Frontend/themes/todo/styles.css'
+import {useTodos} from "Frontend/context/TodoContext";
+import {Icon} from "@hilla/react-components/Icon";
+import '@vaadin/icons';
 
 export function TodoView() {
-    const [activeTodos, setActiveTodos] = useState<Todo[]>([]);
-    const [task, setTask] = useState('');
-    const [doneTodos, setDoneTodos] = useState<Todo[]>([]);
-    const [targetCount, setTargetCount] = useState(1)
-
-
+    const {
+        task,
+        setTask,
+        targetCount,
+        setTargetCount,
+        activeTodos,
+        doneTodos,
+        addTodo,
+        selectTodo,
+        setSelectTodo,
+    } = useTodos();
     const {pomodoroMinutes, breakMinutes} = usePomodoroSettings();
     const {minutes, seconds, startTimer, pauseTimer, stopTimer} = useTimer({
         initialPomodoroMinutes: pomodoroMinutes,
         initialBreakMinutes: breakMinutes
     });
 
-    // fetch data from server
-    useEffect(() => {
-        TodoEndpoints.findAllActive().then(setActiveTodos);
-        TodoEndpoints.findAllDone().then(setDoneTodos);
-    }, []);
-
-
-    async function addTodo() {
-        const saved = await TodoEndpoints.add(task,targetCount)
-        if (saved) {
-            setActiveTodos([...activeTodos, saved]);
-            setTask('')
-            setTargetCount(1)
-        }
-    }
-
-    // function onTimerEnd() {
-    //     activeTodos.forEach(todo => {
-    //         if (!todo.done && todo.id !== undefined) {
-    //             TodoEndpoints.updateCounter(todo.id, 1);
-    //         }
-    //     });
-    // }
-
-    async function updateTodo(todo: Todo, done: boolean) {
-        const saved = await TodoEndpoints.update({...todo, done});
-        if (saved) {
-            if (done) {
-                // If done, remove the from the activeTodos array
-                setActiveTodos(prevActiveTodos => prevActiveTodos.filter(existing => existing.id !== saved.id));
-                // Add  to the doneTodos array
-                setDoneTodos(prevDoneTodos => [...prevDoneTodos, saved]);
-            } else {
-                // If undone, move the back to the activeTodos array
-                setActiveTodos(prevActiveTodos => [...prevActiveTodos, saved]);
-                // Remove from the doneTodos array
-                setDoneTodos(prevDoneTodos => prevDoneTodos.filter(existing => existing.id !== saved.id));
-            }
-        }
+    const handleTodoSelect = (id: number) => {
+        setSelectTodo(id);
     }
 
     const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
@@ -96,41 +64,47 @@ export function TodoView() {
             </div>
 
             <div className={"flex gap-m center"}>
-                <Button theme={"primary"} onClick={startTimer}>
-                    Play
-                </Button>
-                <Button theme={"primary"} onClick={pauseTimer}>
-                    Pause
-                </Button>
-                <Button theme={"primary"} onClick={stopTimer}>
-                    Stop
-                </Button>
+                <Button theme={"primary"} onClick={startTimer}>Play</Button>
+                <Button theme={"primary"} onClick={pauseTimer}>Pause</Button>
+                <Button theme={"primary"} onClick={stopTimer}>Stop</Button>
             </div>
 
             <div className={"flex gap-m center"}>
                 <TextField value={task} placeholder={'add Todo'} onChange={e => setTask(e.target.value)}/>
-                <TextField value={targetCount.toString()} onChange={e => setTargetCount(parseInt(e.target.value) || 1)} />
-                <Button theme={"primary"} onClick={addTodo}>Add</Button>
+                <TextField value={targetCount.toString()} placeholder={"Est Pomodoros"}
+                           onChange={e => setTargetCount(parseInt(e.target.value) || 1)}/>
+                <Button theme={"primary"} onClick={() => addTodo(task, targetCount)}>Add</Button>
             </div>
 
-            <div>
-                <h2>Active Todos</h2>
+            <div className="todo-container">
+                <h2 className="tasks-title">Active Todos</h2>
                 {activeTodos.map(todo => (
-                    <div key={todo.id}>
-                        <span>{todo.task}</span>
-                        <Checkbox checked={todo.done} onCheckedChanged={e => updateTodo(todo, e.detail.value)}/>
-                        {/*<ProgressBar min={todo.currentCount} max={todo.targetCount} ></ProgressBar>*/}
+                    <div key={todo.id}
+                         className={`todo-item ${selectTodo === todo.id ? 'selected' : ''}`}
+                         onClick={() => todo.id !== undefined && handleTodoSelect(todo.id)}>
 
+                        <div className="task">
+                            <span className={`icon not-done`}>
+                                <Icon icon="vaadin:ellipsis-circle-o" style={{color: 'red'}}/>
+                            </span>
+                            <TextField value={todo.task} readonly={true}/>
+                        </div>
+                        <span className="progress">{todo.currentCount}/{todo.targetCount}</span>
                     </div>
                 ))}
             </div>
 
-            <div>
-                <h2>Completed Todos</h2>
+            <div className="todo-container">
+                <h2 className="tasks-title">Completed Todos</h2>
                 {doneTodos.map(todo => (
-                    <div key={todo.id}>
-                        <Checkbox checked={todo.done} onCheckedChanged={e => updateTodo(todo, e.detail.value)}/>
-                        <span>{todo.task}</span>
+                    <div key={todo.id} className="todo-item">
+                        <div className="task">
+                           <span className={`icon done`}>
+                                <Icon icon="vaadin:check-circle-o" style={{color: 'green'}}/>
+                            </span>
+                            <TextField value={todo.task} readonly={true}/>
+                        </div>
+                        <span className="progress">{todo.currentCount}/{todo.targetCount}</span>
                     </div>
                 ))}
             </div>

@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import {useTodos} from "Frontend/context/TodoContext";
 
 interface UseTimerArgs {
     initialPomodoroMinutes: number;
@@ -10,9 +11,10 @@ function useTimer({initialPomodoroMinutes, initialBreakMinutes}: UseTimerArgs) {
     const [seconds, setSeconds] = useState<number>(0);
     const [isPomodoroTime, setIsPomodoroTime] = useState<boolean>(true);
     const [timerRunning, setTimerRunning] = useState<boolean>(false);
+    const {incrementCurrentCount} = useTodos();
 
     useEffect(() => {
-        let interval: NodeJS.Timeout | null = null; // Initialize interval as null
+        let interval: NodeJS.Timeout | null = null;
         if (timerRunning) {
             interval = setInterval(() => {
                 if (seconds === 0) {
@@ -23,8 +25,11 @@ function useTimer({initialPomodoroMinutes, initialBreakMinutes}: UseTimerArgs) {
                         setIsPomodoroTime(!isPomodoroTime);
                         setMinutes(isPomodoroTime ? initialBreakMinutes : initialPomodoroMinutes);
                         setSeconds(0);
+                        if (isPomodoroTime) {
+                            incrementCurrentCount()
+                        }
                         if (minutes === 0) {
-                            setTimerRunning(false); // Automatically stop the timer at the end of each session
+                            setTimerRunning(false);
                         }
                     }
                 } else {
@@ -50,6 +55,9 @@ function useTimer({initialPomodoroMinutes, initialBreakMinutes}: UseTimerArgs) {
         setMinutes(isPomodoroTime ? initialBreakMinutes : initialPomodoroMinutes);
         setIsPomodoroTime(!isPomodoroTime); // Toggle the mode for the next session
         setSeconds(0);
+        if (isPomodoroTime) {
+            incrementCurrentCount();
+        }
     };
 
 

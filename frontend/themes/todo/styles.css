@@ -9,3 +9,75 @@
 .tabsStyle {
     margin: auto;
 }
+
+.todo-container {
+    padding: 20px;
+    background-color: #d9534f;
+}
+
+.tasks-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.todo-item.selected {
+    border: 2px solid #0069f3;
+}
+
+.todo-item .task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.todo-item .icon {
+    display: flex;
+    align-items: center;
+}
+
+.icon.done {
+    color: green;
+}
+
+.icon.not-done {
+    color: red;
+}
+
+.add-task-container {
+    padding: 20px;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.add-task-container:hover {
+    background-color: #f7f7f7;
+}
+
+.progress {
+    color: #888;
+    font-size: 12px;
+}
+
+.timer {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
