@@ -22,6 +22,8 @@ public class TodoEndpoints {
     }
 
     public List<Todo> findAllDone(){return repo.getAllByDoneIsTrue();}
+
+    public void deleteDoneTodos(){ repo.deleteTodosByDoneIsTrue();}
     public Todo add(String task, int targetCount) {
         return repo.save(new Todo(task,targetCount));
     }
@@ -30,6 +32,7 @@ public class TodoEndpoints {
         todo.setCurrentCount(todo.getCurrentCount() + increment);
         return repo.save(todo);
     }
+
 
     public Todo update(Todo todo) {
         return repo.save(todo);

@@ -10,6 +10,26 @@
     margin: auto;
 }
 
+.timer-container {
+    padding: 20px;
+    background: #d9534f;
+}
+
+.timer {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: white;
+}
+
+.timer-titel{
+    font-size: 20px;
+    align-items: center;
+    font-weight: bold;
+    color: #ffffff;
+}
+
 .todo-container {
     padding: 20px;
     background-color: #d9534f;
@@ -17,8 +37,9 @@
 
 .tasks-title {
     font-size: 20px;
+    align-items: center;
     font-weight: bold;
-    color: white;
+    color: #ffffff;
 }
 
 .todo-item {
@@ -74,10 +95,5 @@
     font-size: 12px;
 }
 
-.timer {
-    font-size: 48px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
-}
+
 

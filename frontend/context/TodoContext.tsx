@@ -14,6 +14,7 @@ type TodoContextType = {
     selectTodo: number | null;
     setSelectTodo: (id: number) => void;
     incrementCurrentCount: () => void;
+    deleteDoneTodo:() => void;
 };
 
 const TodoContext = createContext<TodoContextType | undefined>(undefined);
@@ -39,6 +40,11 @@ export const TodoProvider = ({children}: { children: ReactNode }) => {
         }
     };
 
+    const deleteDoneTodo = async () =>{
+        await TodoEndpoints.deleteDoneTodos();
+        setDoneTodos([]);
+    };
+
     const updateTodo = async (todo: Todo, done: boolean) => {
         const saved = await TodoEndpoints.update({...todo, done});
         if (saved) {
@@ -53,6 +59,10 @@ export const TodoProvider = ({children}: { children: ReactNode }) => {
             }
         }
     };
+
+    const handleTodoSelect = (id: number) => {
+        setSelectTodo(id);
+    }
 
 
     const incrementCurrentCount = async () => {
@@ -77,8 +87,9 @@ export const TodoProvider = ({children}: { children: ReactNode }) => {
             addTodo,
             updateTodo,
             selectTodo,
-            setSelectTodo,
-            incrementCurrentCount
+            setSelectTodo: handleTodoSelect,
+            incrementCurrentCount,
+            deleteDoneTodo,
         }}>
             {children}
         </TodoContext.Provider>

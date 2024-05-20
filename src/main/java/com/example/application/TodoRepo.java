@@ -1,6 +1,7 @@
 package com.example.application;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,5 +12,7 @@ public interface TodoRepo extends JpaRepository<Todo,Long> {
 
     public List<Todo> getAllByDoneIsTrue();
 
+    @Transactional
+    void deleteTodosByDoneIsTrue();
 
 }

@@ -23,24 +23,23 @@ export function TodoView() {
         addTodo,
         selectTodo,
         setSelectTodo,
+        deleteDoneTodo,
     } = useTodos();
     const {pomodoroMinutes, breakMinutes} = usePomodoroSettings();
-    const {minutes, seconds, startTimer, pauseTimer, stopTimer} = useTimer({
+    const {minutes, seconds, isPomodoroTime, startTimer, pauseTimer, stopTimer} = useTimer({
         initialPomodoroMinutes: pomodoroMinutes,
         initialBreakMinutes: breakMinutes
     });
 
-    const handleTodoSelect = (id: number) => {
-        setSelectTodo(id);
-    }
 
     const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
     const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
-//https://github.com/vaadin/flow/issues/19200, AppLayout bug current open issue at Hilla.
+//TODO css-styling, remove Textfeld-border, Notification with Pomodoro Start, Break Start
 
     return (
         <AppLayout>
+            {/*//https://github.com/vaadin/flow/issues/19200, AppLayout bug*/}
             <h1 slot="navbar" className={"h1Style"}>
                 Pomodoro
             </h1>
@@ -59,9 +58,19 @@ export function TodoView() {
                 </Tab>
             </Tabs>
 
-            <div className={"timer"}>
-                {timerMinutes}:{timerSeconds}
+
+            <div className={"timer-container"}>
+                <div className={"timer"}>
+                    {timerMinutes}:{timerSeconds}
+                </div>
+                <div>
+                    <TextField className={"timer-titel"} value={isPomodoroTime ? "Learning Time" : "Break Time"}
+                               readonly={true}
+                    ></TextField>
+                </div>
+
             </div>
+
 
             <div className={"flex gap-m center"}>
                 <Button theme={"primary"} onClick={startTimer}>Play</Button>
@@ -70,8 +79,8 @@ export function TodoView() {
             </div>
 
             <div className={"flex gap-m center"}>
-                <TextField value={task} placeholder={'add Todo'} onChange={e => setTask(e.target.value)}/>
-                <TextField value={targetCount.toString()} placeholder={"Est Pomodoros"}
+                <TextField label={'add Todo'} value={task} onChange={e => setTask(e.target.value)}/>
+                <TextField label={"Est Pomodoros"} value={targetCount.toString()}
                            onChange={e => setTargetCount(parseInt(e.target.value) || 1)}/>
                 <Button theme={"primary"} onClick={() => addTodo(task, targetCount)}>Add</Button>
             </div>
@@ -81,7 +90,7 @@ export function TodoView() {
                 {activeTodos.map(todo => (
                     <div key={todo.id}
                          className={`todo-item ${selectTodo === todo.id ? 'selected' : ''}`}
-                         onClick={() => todo.id !== undefined && handleTodoSelect(todo.id)}>
+                         onClick={() => todo.id !== undefined && setSelectTodo(todo.id)}>
 
                         <div className="task">
                             <span className={`icon not-done`}>
@@ -107,6 +116,7 @@ export function TodoView() {
                         <span className="progress">{todo.currentCount}/{todo.targetCount}</span>
                     </div>
                 ))}
+                <Button theme={"primary"} onClick={() => deleteDoneTodo()}>Clean Done Todos</Button>
             </div>
 
         </AppLayout>

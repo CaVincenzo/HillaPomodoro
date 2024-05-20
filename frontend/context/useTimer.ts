@@ -11,7 +11,7 @@ function useTimer({initialPomodoroMinutes, initialBreakMinutes}: UseTimerArgs) {
     const [seconds, setSeconds] = useState<number>(0);
     const [isPomodoroTime, setIsPomodoroTime] = useState<boolean>(true);
     const [timerRunning, setTimerRunning] = useState<boolean>(false);
-    const {incrementCurrentCount} = useTodos();
+    const {incrementCurrentCount,selectTodo} = useTodos();
 
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null;
@@ -43,8 +43,15 @@ function useTimer({initialPomodoroMinutes, initialBreakMinutes}: UseTimerArgs) {
     }, [timerRunning, seconds, minutes, isPomodoroTime, initialPomodoroMinutes, initialBreakMinutes]);
 
     const startTimer = () => {
+        if (isPomodoroTime) {
+            if (selectTodo === null || selectTodo === undefined) {
+                alert("Please select a Todo from the active Todos before starting the timer.");
+                return;
+            }
+        }
         setTimerRunning(true);
     };
+
 
     const pauseTimer = () => {
         setTimerRunning(false);
