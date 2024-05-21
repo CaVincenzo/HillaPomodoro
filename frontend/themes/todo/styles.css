@@ -1,73 +1,161 @@
 
+.pomo-background {
+    background: #d7524e;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
 .h1Style {
     font-size: var(--lumo-font-size-l);
     left: var(--lumo-space-l);
     margin: 0;
     position: absolute;
+    color: #d9534f;
 }
 
 .tabsStyle {
     margin: auto;
+    color: #ffffff;
 }
 
 .timer-container {
+    width: 600px;
     padding: 20px;
-    background: #d9534f;
+    margin: 20px;
+    align-content: center;
+    background: #e17e7b;
 }
 
 .timer {
-    font-size: 48px;
+    font-size: 60px;
     font-weight: bold;
-    margin-bottom: 20px;
     text-align: center;
     color: white;
 }
 
-.timer-titel{
+.timer-title {
+    display: flex;
     font-size: 20px;
-    align-items: center;
     font-weight: bold;
     color: #ffffff;
 }
 
-.todo-container {
+.timer-title input {
+    text-align: center;
+}
+
+.timer-title::part(input-field) {
+    color: #ffffff;
+    text-align: center;
+}
+
+.timer-button {
+    display: flex;
+    justify-content: space-around;
+}
+
+[theme~="primary"] {
+    background-color: #ffffff;
+    color: #d7524e;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.text-field-container {
+    display: flex;
+    max-width: 600px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
     padding: 20px;
-    background-color: #d9534f;
+    background: #e17e7b;
+}
+
+.text-field-container .text-field {
+    display: flex;
+    width: 100%;
+    max-width: 400px;
+    background: #d5514d;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.text-field::part(input-field) {
+    background: #ffffff;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    text-align: center;
+    text-shadow: none;
+
+}
+
+.todo-container {
+    display: flex;
+    max-width: 600px;
+    padding: 20px;
+    margin: 20px;
+    background: #e17e7b;
+    flex-direction: column;
+    align-items: center;
+
 }
 
 .tasks-title {
+    padding: 5px;
     font-size: 20px;
+    text-align: center;
     align-items: center;
     font-weight: bold;
     color: #ffffff;
 }
 
 .todo-item {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: white;
+    background-color: #ffffff;
     padding: 10px;
     border-radius: 5px;
-    margin: 10px 0;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin: 10px;
     cursor: pointer;
-}
-
-.todo-item.selected {
-    border: 2px solid #0069f3;
-}
-
-.todo-item .task {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1;
 }
 
 .todo-item .icon {
     display: flex;
     align-items: center;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.todo-item .task {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    margin-right: 20px;
+    height: 100%;
+}
+.todo-item .task::part(input-field){
+    width: 100%;
+    border: none;
+}
+
+.todo-item .progress {
+    display: flex;
+    align-items: center;
+    color: #d7524e;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 20px;
+
 }
 
 .icon.done {
@@ -78,21 +166,8 @@
     color: red;
 }
 
-.add-task-container {
-    padding: 20px;
-    border: 2px dashed #ccc;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-}
-
-.add-task-container:hover {
-    background-color: #f7f7f7;
-}
-
-.progress {
-    color: #888;
-    font-size: 12px;
+.todo-item.selected {
+    border: 2px solid #0048ff;
 }
 
 

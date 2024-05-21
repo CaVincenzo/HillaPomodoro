@@ -35,10 +35,10 @@ export function TodoView() {
     const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
     const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
-//TODO css-styling, remove Textfeld-border, Notification with Pomodoro Start, Break Start
+//TODO css-styling, check that add Todo needs to be a input, placeholder for Est Pomodoros, alert Break Time, PomodoroTime
 
     return (
-        <AppLayout>
+        <AppLayout className={"pomo-background"}>
             {/*//https://github.com/vaadin/flow/issues/19200, AppLayout bug*/}
             <h1 slot="navbar" className={"h1Style"}>
                 Pomodoro
@@ -60,63 +60,67 @@ export function TodoView() {
 
 
             <div className={"timer-container"}>
+
                 <div className={"timer"}>
                     {timerMinutes}:{timerSeconds}
                 </div>
+
                 <div>
-                    <TextField className={"timer-titel"} value={isPomodoroTime ? "Learning Time" : "Break Time"}
+                    <TextField className={"timer-title"} value={isPomodoroTime ? "Learning Time" : "Break Time"}
                                readonly={true}
+                               style={{marginBottom: "1rem"}}
                     ></TextField>
+                </div>
+
+                <div className={"timer-button"}>
+                    <Button theme={"primary"} onClick={startTimer}>Play</Button>
+                    <Button theme={"primary"} onClick={pauseTimer}>Pause</Button>
+                    <Button theme={"primary"} onClick={stopTimer}>Stop</Button>
                 </div>
 
             </div>
 
 
-            <div className={"flex gap-m center"}>
-                <Button theme={"primary"} onClick={startTimer}>Play</Button>
-                <Button theme={"primary"} onClick={pauseTimer}>Pause</Button>
-                <Button theme={"primary"} onClick={stopTimer}>Stop</Button>
-            </div>
-
-            <div className={"flex gap-m center"}>
-                <TextField label={'add Todo'} value={task} onChange={e => setTask(e.target.value)}/>
-                <TextField label={"Est Pomodoros"} value={targetCount.toString()}
+            <div className={"text-field-container"}>
+                <TextField className={"text-field"} placeholder={"add Todo"} value={task} onChange={e => setTask(e.target.value)}/>
+                <TextField className={"text-field"} placeholder={"Est Pomodoros"} value={targetCount.toString()}
                            onChange={e => setTargetCount(parseInt(e.target.value) || 1)}/>
                 <Button theme={"primary"} onClick={() => addTodo(task, targetCount)}>Add</Button>
             </div>
 
             <div className="todo-container">
+
                 <h2 className="tasks-title">Active Todos</h2>
+
                 {activeTodos.map(todo => (
                     <div key={todo.id}
                          className={`todo-item ${selectTodo === todo.id ? 'selected' : ''}`}
                          onClick={() => todo.id !== undefined && setSelectTodo(todo.id)}>
-
                         <div className="task">
-                            <span className={`icon not-done`}>
+                            <div className={`icon not-done`}>
                                 <Icon icon="vaadin:ellipsis-circle-o" style={{color: 'red'}}/>
-                            </span>
-                            <TextField value={todo.task} readonly={true}/>
+                            </div>
+                            <TextField className={"task"} value={todo.task} readonly={true}/>
                         </div>
-                        <span className="progress">{todo.currentCount}/{todo.targetCount}</span>
+                        <div className="progress">{todo.currentCount}/{todo.targetCount}</div>
                     </div>
                 ))}
-            </div>
 
-            <div className="todo-container">
                 <h2 className="tasks-title">Completed Todos</h2>
+
                 {doneTodos.map(todo => (
                     <div key={todo.id} className="todo-item">
                         <div className="task">
-                           <span className={`icon done`}>
+                           <div className={`icon done`}>
                                 <Icon icon="vaadin:check-circle-o" style={{color: 'green'}}/>
-                            </span>
-                            <TextField value={todo.task} readonly={true}/>
+                            </div>
+                            <TextField className={"task"} value={todo.task} readonly={true}/>
                         </div>
-                        <span className="progress">{todo.currentCount}/{todo.targetCount}</span>
+                        <div className="progress">{todo.currentCount}/{todo.targetCount}</div>
                     </div>
                 ))}
-                <Button theme={"primary"} onClick={() => deleteDoneTodo()}>Clean Done Todos</Button>
+
+                <Button theme={"primary"} onClick={() => deleteDoneTodo()}>Delete Done Todos</Button>
             </div>
 
         </AppLayout>

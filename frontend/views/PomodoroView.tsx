@@ -7,7 +7,7 @@ import {NavLink} from "react-router-dom";
 export function PomodoroView() {
 
     return (
-        <AppLayout>
+        <AppLayout className={"pomo-background"}>
             <h1 slot="navbar" className={"h1Style"}>
                 Pomodoro
             </h1>
@@ -27,7 +27,7 @@ export function PomodoroView() {
                 </Tab>
             </Tabs>
 
-            <div>
+            <div className={"text-field-container"}>
                 <h2>What is Pomodoro Technique?</h2>
                 <p>
                     The Pomodoro Technique is created by Francesco Cirillo for a more productive way to work and study.

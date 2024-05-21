@@ -18,7 +18,7 @@ export function PomodoroSettingsView() {
     };
 
     return (
-        <AppLayout>
+        <AppLayout className={"pomo-background"}>
             <h1 slot="navbar" className={"h1Style"}>
                 Pomodoro
             </h1>
