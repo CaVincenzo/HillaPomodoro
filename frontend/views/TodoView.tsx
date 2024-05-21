@@ -35,63 +35,51 @@ export function TodoView() {
     const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
     const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
-//TODO css-styling, check that add Todo needs to be a input, placeholder for Est Pomodoros, alert Break Time, PomodoroTime
+//TODO fix placeholder Est Pomodoros,
 
     return (
         <AppLayout className={"pomo-background"}>
             {/*//https://github.com/vaadin/flow/issues/19200, AppLayout bug*/}
-            <h1 slot="navbar" className={"h1Style"}>
-                Pomodoro
-            </h1>
+            <h1 slot="navbar" className={"h1Style"}>Pomodoro</h1>
             <Tabs slot="navbar" className={"tabsStyle"}>
                 <Tab>
                     <NavLink to='/'> Pomotime</NavLink>
                 </Tab>
-
                 <Tab>
                     <NavLink to='/pomodoro'> What is Pomodoro?</NavLink>
-
                 </Tab>
-
                 <Tab>
                     <NavLink to='/settings'>Settings </NavLink>
                 </Tab>
             </Tabs>
 
-
             <div className={"timer-container"}>
-
                 <div className={"timer"}>
                     {timerMinutes}:{timerSeconds}
                 </div>
-
                 <div>
                     <TextField className={"timer-title"} value={isPomodoroTime ? "Learning Time" : "Break Time"}
                                readonly={true}
                                style={{marginBottom: "1rem"}}
                     ></TextField>
                 </div>
-
                 <div className={"timer-button"}>
                     <Button theme={"primary"} onClick={startTimer}>Play</Button>
                     <Button theme={"primary"} onClick={pauseTimer}>Pause</Button>
                     <Button theme={"primary"} onClick={stopTimer}>Stop</Button>
                 </div>
-
             </div>
 
-
             <div className={"text-field-container"}>
-                <TextField className={"text-field"} placeholder={"add Todo"} value={task} onChange={e => setTask(e.target.value)}/>
+                <TextField className={"text-field"} placeholder={"add Todo"} value={task}
+                           onChange={e => setTask(e.target.value)}/>
                 <TextField className={"text-field"} placeholder={"Est Pomodoros"} value={targetCount.toString()}
                            onChange={e => setTargetCount(parseInt(e.target.value) || 1)}/>
                 <Button theme={"primary"} onClick={() => addTodo(task, targetCount)}>Add</Button>
             </div>
 
             <div className="todo-container">
-
                 <h2 className="tasks-title">Active Todos</h2>
-
                 {activeTodos.map(todo => (
                     <div key={todo.id}
                          className={`todo-item ${selectTodo === todo.id ? 'selected' : ''}`}
@@ -107,11 +95,10 @@ export function TodoView() {
                 ))}
 
                 <h2 className="tasks-title">Completed Todos</h2>
-
                 {doneTodos.map(todo => (
                     <div key={todo.id} className="todo-item">
                         <div className="task">
-                           <div className={`icon done`}>
+                            <div className={`icon done`}>
                                 <Icon icon="vaadin:check-circle-o" style={{color: 'green'}}/>
                             </div>
                             <TextField className={"task"} value={todo.task} readonly={true}/>
@@ -122,7 +109,6 @@ export function TodoView() {
 
                 <Button theme={"primary"} onClick={() => deleteDoneTodo()}>Delete Done Todos</Button>
             </div>
-
         </AppLayout>
     );
 }

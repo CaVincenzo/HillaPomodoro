@@ -11,7 +11,7 @@ function useTimer({initialPomodoroMinutes, initialBreakMinutes}: UseTimerArgs) {
     const [seconds, setSeconds] = useState<number>(0);
     const [isPomodoroTime, setIsPomodoroTime] = useState<boolean>(true);
     const [timerRunning, setTimerRunning] = useState<boolean>(false);
-    const {incrementCurrentCount,selectTodo} = useTodos();
+    const {incrementCurrentCount, selectTodo} = useTodos();
 
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null;
@@ -27,6 +27,9 @@ function useTimer({initialPomodoroMinutes, initialBreakMinutes}: UseTimerArgs) {
                         setSeconds(0);
                         if (isPomodoroTime) {
                             incrementCurrentCount()
+                            alert("Time for a Break")
+                        } else {
+                            alert("Time to Focus again")
                         }
                         if (minutes === 0) {
                             setTimerRunning(false);

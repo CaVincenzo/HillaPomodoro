@@ -17,6 +17,7 @@ export function PomodoroSettingsView() {
         setTimeout(() => setShowConfirmation(false), 3000); // Hide message after 3 seconds
     };
 
+    //TODO: need to fix jumping Save Button
     return (
         <AppLayout className={"pomo-background"}>
             <h1 slot="navbar" className={"h1Style"}>
@@ -26,33 +27,34 @@ export function PomodoroSettingsView() {
                 <Tab>
                     <NavLink to='/'> Pomotime</NavLink>
                 </Tab>
-
                 <Tab>
                     <NavLink to='/pomodoro'> What is Pomodoro?</NavLink>
 
                 </Tab>
-
                 <Tab>
                     <NavLink to='/settings'>Settings </NavLink>
                 </Tab>
             </Tabs>
 
-            <h1>Pomodoro Settings</h1>
-            <div>
-                <TextField label="Pomodoro Minutes" value={String(pomodoroMinutes)}
-                           onChange={(e) => setPomodoroMinutes(Number(e.target.value))}/>
+            <div className={"settings-field-container"}>
+                <div className={"settings-title"}>Pomodoro Settings</div>
+                <div className={"settings-text-fields"}>
+                    <TextField className={"settings-text-fields"} label="Pomodoro Minutes"
+                               value={String(pomodoroMinutes)}
+                               onChange={(e) => setPomodoroMinutes(Number(e.target.value))}/>
+                </div>
+                <div className={"settings-text-fields"}>
+                    <TextField className={"settings-text-fields"} label="Break Minutes" value={String(breakMinutes)}
+                               onChange={(e) => setBreakMinutes(Number(e.target.value))}/></div>
+
+                <div>
+                    <Button theme={"primary"} className={"save-button"} onClick={handleSave}>Save</Button>
+                    {showConfirmation && (
+                        <div className={"confirmation-message"}>
+                            Timers updated! Pomodoro: {pomodoroMinutes} minutes, Break: {breakMinutes} minutes.</div>
+                    )}
+                </div>
             </div>
-            <div><TextField label="Break Minutes" value={String(breakMinutes)}
-                            onChange={(e) => setBreakMinutes(Number(e.target.value))}/></div>
-
-            <div>
-                <Button onClick={handleSave}>Save</Button>
-                {showConfirmation && (
-                    <p>Timers updated! Pomodoro: {pomodoroMinutes} minutes, Break: {breakMinutes} minutes.</p>
-                )}
-            </div>
-
-
         </AppLayout>
     );
 }

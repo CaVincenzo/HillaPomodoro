@@ -8,6 +8,7 @@
     padding: 50px;
 }
 
+/*styles, header */
 .h1Style {
     font-size: var(--lumo-font-size-l);
     left: var(--lumo-space-l);
@@ -21,6 +22,7 @@
     color: #ffffff;
 }
 
+/*styles, Timer */
 .timer-container {
     width: 600px;
     padding: 20px;
@@ -65,6 +67,7 @@
     font-weight: bold;
 }
 
+/*styles, Add task */
 .text-field-container {
     display: flex;
     max-width: 600px;
@@ -75,6 +78,7 @@
     padding: 20px;
     background: #e17e7b;
 }
+
 
 .text-field-container .text-field {
     display: flex;
@@ -93,9 +97,9 @@
     width: 100%;
     text-align: center;
     text-shadow: none;
-
 }
 
+/*styles, Pomodoro_Todo_container */
 .todo-container {
     display: flex;
     max-width: 600px;
@@ -115,6 +119,7 @@
     font-weight: bold;
     color: #ffffff;
 }
+
 
 .todo-item {
     width: 100%;
@@ -143,7 +148,8 @@
     margin-right: 20px;
     height: 100%;
 }
-.todo-item .task::part(input-field){
+
+.todo-item .task::part(input-field) {
     width: 100%;
     border: none;
 }
@@ -170,5 +176,92 @@
     border: 2px solid #0048ff;
 }
 
+/*styles, PomodoroView?*/
 
+.pomodoro-text-container {
+    display: flex;
+    max-width: 600px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    background: #e17e7b;
+}
 
+.text-title {
+    display: flex;
+    align-items: flex-start;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.text-pomodoro {
+    display: flex;
+    color: white;
+}
+
+/*styles, Settings_View*/
+
+.settings-field-container {
+    display: flex;
+    max-width: 600px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    background: #e17e7b;
+}
+
+.settings-title {
+    width: 600px;
+    padding: 5px;
+    font-size: 20px;
+    text-align: center;
+    align-items: center;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.settings-text-fields {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.settings-text-fields::part(input-field) {
+    background: #ffffff;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    text-align: center;
+    text-shadow: none;
+}
+
+.settings-text-fields label {
+    color: white;
+}
+
+button.save-button {
+    align-content: center;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.confirmation-message {
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+}

@@ -27,16 +27,38 @@ export function PomodoroView() {
                 </Tab>
             </Tabs>
 
-            <div className={"text-field-container"}>
-                <h2>What is Pomodoro Technique?</h2>
-                <p>
-                    The Pomodoro Technique is created by Francesco Cirillo for a more productive way to work and study.
-                    The technique uses a timer to break down work into intervals, traditionally 25 minutes in length,
-                    separated by short breaks. Each interval is known as a pomodoro, from the Italian word for 'tomato',
-                    after the tomato-shaped kitchen timer that Cirillo used as a university student.
-                </p>
+            <div className={"pomodoro-text-container"}>
+                <div className={"text-title"}>What is the Pomodoro Technique?</div>
+                <div className={"text-pomodoro"}>
+                    The Pomodoro Technique is a time management method based on 25-minute stretches of focused work,
+                    interspersed with five-minute breaks.
+                    Each work interval is called a pomodoro, the Italian word for tomato.
+                    The Pomodoro Technique was developed by Francesco Cirillo as a means of achieving greater
+                    productivity in work and study.
+                    The Pomodoro Technique essentially trains individuals to focus on tasks more effectively by limiting
+                    the length of time they attempt to maintain that focus and ensuring restorative breaks from the
+                    effort.
+                    Additionally, the method assists individuals in overcoming their tendencies to procrastinate or
+                    multitask, both of which have been demonstrated to impair productivity.
+                </div>
             </div>
 
+            <div className={"pomodoro-text-container"}>
+                <div className={"text-title"}>How to use the Pomodoro Timer?</div>
+                <div className={"text-pomodoro"}>
+                    <ol>
+                        <li>Optional: Set your Pomodoro Timers in the Settings</li>
+                        <li>Add a Task to work on</li>
+                        <li>Set estimate pomodoros for each task</li>
+                        <li>Select the task to work on</li>
+                        <li>Start timer and focus on the task</li>
+                        <li>Take a break</li>
+                        <li>Repeat</li>
+                        <li>Delete your Done Todos</li>
+                        <li>Have Fun :)</li>
+                    </ol>
+                </div>
+            </div>
         </AppLayout>
     );
 }
