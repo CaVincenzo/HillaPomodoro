@@ -25,6 +25,9 @@ public class TodoEndpoints {
 
     public void deleteDoneTodos(){ repo.deleteTodosByDoneIsTrue();}
     public Todo add(String task, int targetCount) {
+        if (task.trim().isEmpty() || targetCount <= 0) {
+            throw new IllegalArgumentException("Task must not be empty and targetCount must be greater than zero");
+        }
         return repo.save(new Todo(task,targetCount));
     }
     public Todo updateCounter(Long todoId, int increment) {

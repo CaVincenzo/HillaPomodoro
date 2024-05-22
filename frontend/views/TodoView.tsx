@@ -5,7 +5,7 @@ import {AppLayout} from "@hilla/react-components/AppLayout";
 import {Tabs} from "@hilla/react-components/Tabs";
 import {Tab} from "@hilla/react-components/Tab";
 import {NavLink} from "react-router-dom";
-import useTimer from "Frontend/context/useTimer";
+import useTimer from "Frontend/context/UseTimer";
 import {usePomodoroSettings} from "Frontend/context/PomodoroTimerContext";
 import 'Frontend/themes/todo/styles.css'
 import {useTodos} from "Frontend/context/TodoContext";
@@ -31,11 +31,8 @@ export function TodoView() {
         initialBreakMinutes: breakMinutes
     });
 
-
     const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
     const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
-
-//TODO fix placeholder Est Pomodoros,
 
     return (
         <AppLayout className={"pomo-background"}>

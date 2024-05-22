@@ -16,11 +16,11 @@ type TodoContextType = {
     incrementCurrentCount: () => void;
     deleteDoneTodo: () => void;
 };
-//Todo: fix adding empty Task
 
 const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
 export const TodoProvider = ({children}: { children: ReactNode }) => {
+
     const [activeTodos, setActiveTodos] = useState<Todo[]>([]);
     const [doneTodos, setDoneTodos] = useState<Todo[]>([]);
     const [task, setTask] = useState('');
@@ -33,8 +33,7 @@ export const TodoProvider = ({children}: { children: ReactNode }) => {
     }, []);
 
     const addTodo = async (task: string, targetCount: number) => {
-
-        if (task == undefined && targetCount <= 0) {
+        if (task.trim() == null && targetCount <= 0) {
             alert("Please enter a valid task and estimated amount for your Pomodoro")
             return;
         }
@@ -47,7 +46,7 @@ export const TodoProvider = ({children}: { children: ReactNode }) => {
             }
         } catch (error) {
             console.error("Failed to add todo:", error);
-            alert("An error occurred while adding a todo.")
+            alert("An error occurred while adding a todo. Please check your Input in the add Todo Text field.")
         }
     };
 
@@ -83,6 +82,7 @@ export const TodoProvider = ({children}: { children: ReactNode }) => {
                 const updatedCount = todo.currentCount + 1;
                 const isDone = updatedCount >= todo.targetCount;
                 await updateTodo({...todo, currentCount: updatedCount, done: isDone}, isDone);
+                setSelectTodo(null)
             }
         }
     };

@@ -63,7 +63,7 @@ function useTimer({initialPomodoroMinutes, initialBreakMinutes}: UseTimerArgs) {
     const stopTimer = () => {
         setTimerRunning(false);
         setMinutes(isPomodoroTime ? initialBreakMinutes : initialPomodoroMinutes);
-        setIsPomodoroTime(!isPomodoroTime); // Toggle the mode for the next session
+        setIsPomodoroTime(!isPomodoroTime);
         setSeconds(0);
         if (isPomodoroTime) {
             incrementCurrentCount();
