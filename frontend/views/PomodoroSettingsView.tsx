@@ -10,14 +10,33 @@ import {Button} from "@hilla/react-components/Button";
 export function PomodoroSettingsView() {
 
     const {pomodoroMinutes, setPomodoroMinutes, breakMinutes, setBreakMinutes} = usePomodoroSettings();
-    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [localPomodoroTime, setLocalPomodoroTime] = useState<number>()
+    const [localBreakTime, setLocalBreakTime] = useState<number>()
 
-    const handleSave = () => {
-        setShowConfirmation(true); // Show confirmation message
-        setTimeout(() => setShowConfirmation(false), 3000); // Hide message after 3 seconds
+    const handlePomodoroTimeChange = (value: string) => {
+        if (/^\d*$/.test(value)) {
+            setLocalPomodoroTime(Number(value));
+        }
     };
 
-    //TODO: need to fix jumping Save Button
+    const handleBreakTimeChange = (value: string) => {
+        if (/^\d*$/.test(value)) {
+            setLocalBreakTime(Number(value));
+        }
+    };
+
+    const handleSave = () => {
+        const newPomodoroMinutes = Number(localPomodoroTime);
+        const newBreakMinutes = Number(localBreakTime);
+
+        if (newPomodoroMinutes && newBreakMinutes != undefined) {
+            setPomodoroMinutes(newPomodoroMinutes);
+            setBreakMinutes(newBreakMinutes);
+        } else{
+            alert("Please write only full digits in the Text Field")
+        }
+    };
+
     return (
         <AppLayout className={"pomo-background"}>
             <h1 slot="navbar" className={"h1Style"}>
@@ -29,7 +48,6 @@ export function PomodoroSettingsView() {
                 </Tab>
                 <Tab>
                     <NavLink to='/pomodoro'> What is Pomodoro?</NavLink>
-
                 </Tab>
                 <Tab>
                     <NavLink to='/settings'>Settings </NavLink>
@@ -40,19 +58,26 @@ export function PomodoroSettingsView() {
                 <div className={"settings-title"}>Pomodoro Settings</div>
                 <div className={"settings-text-fields"}>
                     <TextField className={"settings-text-fields"} label="Pomodoro Minutes"
-                               value={String(pomodoroMinutes)}
-                               onChange={(e) => setPomodoroMinutes(Number(e.target.value))}/>
+                               placeholder={"Set your Pomodoro Time"} value={localPomodoroTime? localPomodoroTime.toString(): ""}
+                               onChange={(e) => handlePomodoroTimeChange(e.target.value)}/>
                 </div>
                 <div className={"settings-text-fields"}>
-                    <TextField className={"settings-text-fields"} label="Break Minutes" value={String(breakMinutes)}
-                               onChange={(e) => setBreakMinutes(Number(e.target.value))}/></div>
+                    <TextField className={"settings-text-fields"} label="Break Minutes"
+                               placeholder={"Set your Break Time"}
+                               value={localBreakTime ? localBreakTime.toString() : ""}
+                               onChange={(e) => handleBreakTimeChange(e.target.value)}/></div>
+
+                <div className={"settings-text-fields"}>
+
+                    <TextField className={"settings-text-fields"} label={"Current Pomodoro Time"} readonly={true}
+                    value={`${pomodoroMinutes}`}></TextField>
+
+                    <TextField className={"settings-text-fields"} label={"Current Break Time"} readonly={true}
+                               value={`${breakMinutes}`}></TextField>
+                </div>
 
                 <div>
                     <Button theme={"primary"} className={"save-button"} onClick={handleSave}>Save</Button>
-                    {showConfirmation && (
-                        <div className={"confirmation-message"}>
-                            Timers updated! Pomodoro: {pomodoroMinutes} minutes, Break: {breakMinutes} minutes.</div>
-                    )}
                 </div>
             </div>
         </AppLayout>

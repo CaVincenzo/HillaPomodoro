@@ -17,9 +17,9 @@ type TodoContextType = {
     deleteDoneTodo: () => void;
 };
 
-const TodoContext = createContext<TodoContextType | undefined>(undefined);
+const PomodoroContext = createContext<TodoContextType | undefined>(undefined);
 
-export const TodoProvider = ({children}: { children: ReactNode }) => {
+export const PomodoroProvider = ({children}: { children: ReactNode }) => {
 
     const [activeTodos, setActiveTodos] = useState<Todo[]>([]);
     const [doneTodos, setDoneTodos] = useState<Todo[]>([]);
@@ -88,7 +88,7 @@ export const TodoProvider = ({children}: { children: ReactNode }) => {
     };
 
     return (
-        <TodoContext.Provider value={{
+        <PomodoroContext.Provider value={{
             task,
             setTask,
             targetCount,
@@ -103,12 +103,12 @@ export const TodoProvider = ({children}: { children: ReactNode }) => {
             deleteDoneTodo,
         }}>
             {children}
-        </TodoContext.Provider>
+        </PomodoroContext.Provider>
     );
 };
 
 export const useTodos = () => {
-    const context = useContext(TodoContext);
+    const context = useContext(PomodoroContext);
     if (context === undefined) {
         throw new Error("useTodos must be used within a TodoProvider");
     }

@@ -15,8 +15,6 @@ public class Todo {
 
     private boolean done;
 
-
-
     private int targetCount;
     private int currentCount;
 

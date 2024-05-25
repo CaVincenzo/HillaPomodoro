@@ -17,7 +17,7 @@ export const usePomodoroSettings = (): PomodoroContextType => {
     return context;
 };
 
-export const PomodoroProvider: React.FC<{ children: ReactNode }> = ({children}) => {
+export const GlobalTimerProvider: React.FC<{ children: ReactNode }> = ({children}) => {
     const [pomodoroMinutes, setPomodoroMinutes] = useState<number>(25);
     const [breakMinutes, setBreakMinutes] = useState<number>(5);
 

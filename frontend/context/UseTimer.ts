@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useTodos} from "Frontend/context/TodoContext";
+import {useTodos} from "Frontend/context/PomodoroContext";
 
 interface UseTimerArgs {
     initialPomodoroMinutes: number;

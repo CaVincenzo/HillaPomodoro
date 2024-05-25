@@ -1,15 +1,15 @@
 import router from 'Frontend/util/routes';
 import {RouterProvider} from 'react-router-dom';
-import {PomodoroProvider} from "Frontend/context/PomodoroTimerContext";
-import {TodoProvider} from "Frontend/context/TodoContext";
+import {GlobalTimerProvider} from "Frontend/context/PomodoroTimerContext";
+import {PomodoroProvider} from "Frontend/context/PomodoroContext";
 
 export default function App() {
 
     return (
-        <PomodoroProvider>
-            <TodoProvider>
+        <GlobalTimerProvider>
+            <PomodoroProvider>
                 <RouterProvider router={router}/>
-            </TodoProvider>
-        </PomodoroProvider>);
+            </PomodoroProvider>
+        </GlobalTimerProvider>);
 
 }
