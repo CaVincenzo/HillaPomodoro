@@ -1,6 +1,7 @@
 import React, {createContext, ReactNode, useContext, useEffect, useState} from "react";
-import Todo from "Frontend/generated/com/example/application/Todo";
+import Todo from "Frontend/generated/com/example/application/entity/Todo";
 import {TodoEndpoints} from "Frontend/generated/endpoints.js";
+import {logout} from "Frontend/auth";
 
 type TodoContextType = {
     activeTodos: Todo[];
@@ -15,6 +16,7 @@ type TodoContextType = {
     setSelectTodo: (id: number) => void;
     incrementCurrentCount: () => void;
     deleteDoneTodo: () => void;
+    handleLogout: ()=> void;
 };
 
 const PomodoroContext = createContext<TodoContextType | undefined>(undefined);
@@ -74,6 +76,11 @@ export const PomodoroProvider = ({children}: { children: ReactNode }) => {
         setSelectTodo(id);
     }
 
+    const handleLogout = async () =>{
+        await logout()
+        window.location.href = "/login";
+    }
+
 
     const incrementCurrentCount = async () => {
         if (selectTodo !== null) {
@@ -101,6 +108,7 @@ export const PomodoroProvider = ({children}: { children: ReactNode }) => {
             setSelectTodo: handleTodoSelect,
             incrementCurrentCount,
             deleteDoneTodo,
+            handleLogout
         }}>
             {children}
         </PomodoroContext.Provider>

@@ -9,10 +9,12 @@
     "sourceMap": true,
     "jsx": "react-jsx",
     "inlineSources": true,
-    "module": "esNext",
+    "module": "ESNext",
     "target": "es2020",
-    "moduleResolution": "bundler",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
     "strict": true,
+    "lib": ["ESNext","DOM"],
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
@@ -27,7 +29,8 @@
       "@vaadin/flow-frontend": ["generated/jar-resources"],
       "@vaadin/flow-frontend/*": ["generated/jar-resources/*"],
       "Frontend/*": ["*"]
-    }
+    },
+
   },
   "include": [
     "frontend/**/*",

@@ -1,14 +1,16 @@
 package com.example.application.endpoints;
 
-import com.example.application.Todo;
-import com.example.application.TodoRepo;
+import com.example.application.entity.Todo;
+import com.example.application.repository.TodoRepo;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import dev.hilla.Endpoint;
+import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
 
 @Endpoint
 @AnonymousAllowed
+@PermitAll
 public class TodoEndpoints {
     // API to call the Server
     private TodoRepo repo;

@@ -24,12 +24,16 @@ export function PomodoroView() {
         selectTodo,
         setSelectTodo,
         deleteDoneTodo,
+        handleLogout,
     } = useTodos();
+
+
     const {pomodoroMinutes, breakMinutes} = usePomodoroSettings();
     const {minutes, seconds, isPomodoroTime, startTimer, pauseTimer, stopTimer} = useTimer({
         initialPomodoroMinutes: pomodoroMinutes,
         initialBreakMinutes: breakMinutes
     });
+
 
     const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
     const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
@@ -47,6 +51,9 @@ export function PomodoroView() {
                 </Tab>
                 <Tab>
                     <NavLink to='/settings'>Settings </NavLink>
+                </Tab>
+                <Tab>
+                    <Button theme={"timer-button"} onClick={handleLogout}> Abmelden</Button>
                 </Tab>
             </Tabs>
 

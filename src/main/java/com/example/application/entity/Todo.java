@@ -1,4 +1,4 @@
-package com.example.application;
+package com.example.application.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -50,6 +50,7 @@ public class Todo {
     public void setDone(boolean done) {
         this.done = done;
     }
+
     public int getTargetCount() {
         return targetCount;
     }
