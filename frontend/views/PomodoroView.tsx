@@ -11,6 +11,7 @@ import 'Frontend/themes/todo/styles.css'
 import {useTodos} from "Frontend/context/PomodoroContext";
 import {Icon} from "@hilla/react-components/Icon";
 import '@vaadin/icons';
+import {getAuthenticatedUser} from "Frontend/auth";
 
 export function PomodoroView() {
     const {
@@ -27,7 +28,7 @@ export function PomodoroView() {
         handleLogout,
     } = useTodos();
 
-
+    const user = getAuthenticatedUser();
     const {pomodoroMinutes, breakMinutes} = usePomodoroSettings();
     const {minutes, seconds, isPomodoroTime, startTimer, pauseTimer, stopTimer} = useTimer({
         initialPomodoroMinutes: pomodoroMinutes,
@@ -53,11 +54,15 @@ export function PomodoroView() {
                     <NavLink to='/settings'>Settings </NavLink>
                 </Tab>
                 <Tab>
-                    <Button theme={"timer-button"} onClick={handleLogout}> Abmelden</Button>
+                    <Button className={"timer-button"} onClick={handleLogout}> Abmelden</Button>
                 </Tab>
             </Tabs>
 
             <div className={"timer-container"}>
+
+                <div>
+                    <TextField className={"timer-title"} value={`Username: ${user?.name}`} readonly={true} >  </TextField>
+                </div>
                 <div className={"timer"}>
                     {timerMinutes}:{timerSeconds}
                 </div>

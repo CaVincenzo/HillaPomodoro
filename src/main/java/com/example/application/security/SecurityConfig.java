@@ -23,7 +23,7 @@ public class SecurityConfig extends VaadinWebSecurity {
 
         return new InMemoryUserDetailsManager(
                 User.withUsername("userA").password("{noop}user").roles("USER").build(),
-                User.withUsername("userB").password("{noop}user").roles("USER").build(),
+                User.withUsername("userB").password("{noop}user").roles("USER_NO_ACCESS").build(),
                 User.withUsername("admin").password("{noop}admin").roles("ADMIN", "USER").build());
     }
 

@@ -14,7 +14,7 @@
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "strict": true,
-    "lib": ["ESNext","DOM"],
+//    "lib": ["ESNext","DOM"],
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,

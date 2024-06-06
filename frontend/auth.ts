@@ -6,6 +6,7 @@ import UserInfo from "Frontend/generated/com/example/application/security/UserIn
 
 interface Authentication {
     user: UserInfo;
+    roles: string[];
     timestamp: number;
 }
 
@@ -51,8 +52,10 @@ export async function login(username: string, password: string): Promise<LoginRe
     if (!result.error) {
         // Get user info from endpoint
         const user = await UserInfoService.getUserInfo();
+        const roles = user.authorities;
         authentication = {
             user,
+            roles,
             timestamp: new Date().getTime(),
         };
 
@@ -87,7 +90,10 @@ export function isUserInRole(role: string) {
     if (!authentication) {
         return false;
     }
-
     return authentication.user.authorities.includes(`ROLE_${role}`);
+}
+
+export  function getAuthenticatedUser(): UserInfo | undefined{
+    return authentication?.user;
 }
 
