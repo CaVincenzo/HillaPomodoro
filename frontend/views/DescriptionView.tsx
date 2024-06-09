@@ -3,8 +3,14 @@ import {Tabs} from "@hilla/react-components/Tabs";
 import {Tab} from "@hilla/react-components/Tab";
 import React from "react";
 import {NavLink} from "react-router-dom";
+import {Button} from "@hilla/react-components/Button";
+import {useTodos} from "Frontend/context/PomodoroContext";
+
+
 
 export function DescriptionView() {
+
+    const {handleLogout} = useTodos();
 
     return (
         <AppLayout className={"pomo-background"}>
@@ -24,6 +30,10 @@ export function DescriptionView() {
 
                 <Tab>
                     <NavLink to='/settings'>Settings </NavLink>
+                </Tab>
+
+                <Tab>
+                    <Button className={"timer-button"} onClick={handleLogout}> Abmelden</Button>
                 </Tab>
             </Tabs>
 

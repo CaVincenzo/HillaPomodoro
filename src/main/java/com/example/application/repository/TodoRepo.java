@@ -9,11 +9,11 @@ import java.util.List;
 // A way to get and save in the Database
 public interface TodoRepo extends JpaRepository<Todo, Long> {
 
-    public List<Todo> getAllByDoneIsFalse();
+    public List<Todo> getAllByDoneIsFalseAndUsername(String username);
 
-    public List<Todo> getAllByDoneIsTrue();
+    public List<Todo> getAllByDoneIsTrueAndUsername(String username);
 
     @Transactional
-    void deleteTodosByDoneIsTrue();
+    void deleteTodosByDoneIsTrueAndUsername(String username);
 
 }

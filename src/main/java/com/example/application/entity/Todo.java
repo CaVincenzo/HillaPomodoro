@@ -2,26 +2,38 @@ package com.example.application.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 
 @Entity
 public class Todo {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String task;
+
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     private boolean done;
 
     private int targetCount;
     private int currentCount;
 
-    public Todo(String task, int targetCount) {
+    public Todo(String task, int targetCount,String username) {
         this.task = task;
         this.targetCount = targetCount;
         this.currentCount = 0;
+        this.username = username;
     }
 
     public Todo() {

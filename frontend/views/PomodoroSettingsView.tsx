@@ -6,13 +6,14 @@ import {Tab} from "@hilla/react-components/Tab";
 import {usePomodoroSettings} from "Frontend/context/PomodoroTimerContext";
 import {TextField} from "@hilla/react-components/TextField";
 import {Button} from "@hilla/react-components/Button";
+import {useTodos} from "Frontend/context/PomodoroContext";
 
 export function PomodoroSettingsView() {
 
     const {pomodoroMinutes, setPomodoroMinutes, breakMinutes, setBreakMinutes} = usePomodoroSettings();
     const [localPomodoroTime, setLocalPomodoroTime] = useState<number>()
     const [localBreakTime, setLocalBreakTime] = useState<number>()
-
+    const {handleLogout} = useTodos();
     const handlePomodoroTimeChange = (value: string) => {
         if (/^\d*$/.test(value)) {
             setLocalPomodoroTime(Number(value));
@@ -51,6 +52,9 @@ export function PomodoroSettingsView() {
                 </Tab>
                 <Tab>
                     <NavLink to='/settings'>Settings </NavLink>
+                </Tab>
+                <Tab>
+                    <Button className={"timer-button"} onClick={handleLogout}> Abmelden</Button>
                 </Tab>
             </Tabs>
 
